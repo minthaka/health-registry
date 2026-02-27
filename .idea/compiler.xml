@@ -8,22 +8,16 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
       </profile>
-      <profile name="Annotation profile for health-registry" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar" />
-        </processorPath>
-        <module name="healthcare-common" />
-        <module name="health-discovery" />
-        <module name="healthcare-orchestrator-service" />
-        <module name="health-doctor" />
-        <module name="health-gateway" />
-        <module name="health-indexer" />
-        <module name="healthcare-user-service" />
-      </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="health-discovery" target="17" />
+      <module name="health-doctor" target="17" />
+      <module name="health-gateway" target="17" />
+      <module name="health-indexer" target="17" />
+      <module name="healthcare-common" target="17" />
+      <module name="healthcare-orchestrator-service" target="17" />
+      <module name="healthcare-user-service" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
