@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         // Must match your Global Tool Configuration name
-        maven 'Maven_3.9.12'
+        maven 'Maven 3.9.12'
     }
 
     stages {
