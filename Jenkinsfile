@@ -2,55 +2,30 @@ pipeline {
     agent any
 
     tools {
-        // This name MUST match what you configured in
-        // Manage Jenkins -> Tools -> Maven Installations
-        maven 'Maven 3.9.12'
+        // Must match your Global Tool Configuration name
+        maven 'Maven_3.9.12'
     }
 
     stages {
-        stage('Checkout') {
+        stage('Initialize') {
             steps {
-                // Grabs the code from the Git repo linked to the job
-                checkout scm
+                sh 'mvn -version'
             }
         }
 
-        stage('Code Quality (SonarQube)') {
+        stage('Install Parent POM') {
             steps {
-                script {
-                    // 'MySonarServer' must match the name in
-                    // Manage Jenkins -> System -> SonarQube servers
-                    // The URL there should be http://sonarqube-local:9000
-                    withSonarQubeEnv('MySonarServer') {
-                        sh 'mvn sonar:sonar'
-                    }
-                }
-            }
-        }
-
-        stage('Build & Unit Tests') {
-            steps {
-                // Compiles code and runs JUnit tests
-                // We use -DskipTests=false to ensure quality
-                sh 'mvn clean package'
-            }
-        }
-
-        stage('Archive Artifacts') {
-            steps {
-                // This saves the resulting JAR so you can
-                // download it from the Jenkins UI
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                // -N (non-recursive) is mandatory!
+                // It tells Maven: "Don't look for the <modules> folders."
+                // install puts the pom.xml into /var/jenkins_home/.m2/repository
+                sh 'mvn clean install -N'
             }
         }
     }
 
     post {
         success {
-            echo 'Build, Quality Check, and Archiving completed successfully!'
-        }
-        failure {
-            echo 'Something went wrong. Check the console output above.'
+            echo 'Parent POM is now available for all child projects.'
         }
     }
 }
