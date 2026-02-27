@@ -1,0 +1,8 @@
+# Project exclude paths
+/health-discovery/
+/health-gateway/
+/health-indexer/
+/healthcare-user-service/
+/health-doctor/
+/healthcare-orchestrator-service/
+/healthcare-common/
